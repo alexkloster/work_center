@@ -21,7 +21,6 @@
 
     </properties>
 
-    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
