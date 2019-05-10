@@ -69,6 +69,10 @@ CREATE TABLE response
         ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
+alter table response
+    add approved boolean;
 
 
+create unique index response_unuque_index
+    on response (user_id, offer_id);
 

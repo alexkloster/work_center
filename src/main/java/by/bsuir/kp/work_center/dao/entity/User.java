@@ -24,6 +24,9 @@ public class User {
 
     private Boolean submitted;
 
+    private String phone;
+
+
     public User() {
     }
 
@@ -32,12 +35,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String login, String name, String password, Role role, Boolean submitted) {
+    public User(String login, String name, String password, Role role, Boolean submitted, String phone) {
         this.login = login;
         this.name = name;
         this.password = password;
         this.role = role;
         this.submitted = submitted;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -86,5 +90,13 @@ public class User {
 
     public void setSubmitted(Boolean submitted) {
         this.submitted = submitted;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
