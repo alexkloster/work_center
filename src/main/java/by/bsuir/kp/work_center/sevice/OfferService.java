@@ -8,6 +8,12 @@ public interface OfferService {
 
     List<Offer> getAllActiveOffers();
 
+    List<Offer> getAllOffers();
+
     Offer getById(Long id);
+
+    Offer save(Offer offer);
+
+    void activateOffer(Long id, Boolean active);
 
 }

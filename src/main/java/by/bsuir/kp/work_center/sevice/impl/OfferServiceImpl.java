@@ -21,7 +21,26 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public List<Offer> getAllOffers() {
+        return offerRepository.findAll();
+    }
+
+    @Override
     public Offer getById(Long id) {
         return offerRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Offer save(Offer offer) {
+        return offerRepository.save(offer);
+    }
+
+    @Override
+    public void activateOffer(Long id, Boolean active) {
+        Offer offer = offerRepository.findById(id).orElse(null);
+        if (offer != null) {
+            offer.setActive(active);
+            save(offer);
+        }
     }
 }

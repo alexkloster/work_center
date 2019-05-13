@@ -57,6 +57,15 @@
                                 <a class="nav-link" href="/users">Работа с пользователями</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="/offer-management">Вакансии</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/company-management">Компании</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/response-management">Отклики</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="/statistic">Статистика</a>
                             </li>
                             <li class="nav-item">
@@ -232,6 +241,135 @@
                     </div>
                 </div>
             </c:when>
+
+            <c:when test="${mode=='MODE_WORK_LIST'}">
+                <br>
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="float-right">
+                                <a class="btn btn-primary" href="/new-offer">Новая вакансия</a>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="form-horizontal col-lg-12" method="POST"
+                          action="/filter-offers">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="control-label col-lg-12">Компания</label>
+                                <form:input type="hidden" path="offerFiltering.company.companyId" name="companyIdHidden"
+                                            id="companyIdHidden"/>
+                                <div class="col-lg-12">
+                                    <select class="form-control" id="companySelect">
+                                        <option></option>
+                                        <c:forEach var="company" items="${companies}">
+                                            <option value="${company.id}"><c:out
+                                                    value="${company.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <br>
+
+                                <label class="control-label col-lg-12">Город</label>
+                                <form:input type="hidden" path="offerFiltering.company.cityId" name="cityIdHidden"
+                                            id="cityIdHidden"/>
+                                <div class="col-lg-12">
+                                    <select class="form-control" id="citySelect">
+                                        <option></option>
+                                        <c:forEach var="city" items="${cities}">
+                                            <option value="${city.id}"><c:out
+                                                    value="${city.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-12">
+                                    <div class="float-right"></div>
+                                    <form:input type="hidden" path="offerFiltering.salaryFrom"
+                                                name="offerSalaryFromHidden"
+                                                id="offerSalaryFromHidden" value="1000"/>
+                                    <form:input type="hidden" path="offerFiltering.salaryTo"
+                                                name="offerSalaryToHidden"
+                                                id="offerSalaryToHidden" value="2000"/>
+                                    <label class="control-label col-lg-12">Зарплата</label>
+
+                                    <label class="control-label col-lg-4" for="offerSalaryFrom">От:</label>
+                                    <input id="offerSalaryFrom" type="number" class="col-lg-8" value="1000" min="500"
+                                           max="10000" step="100" data-suffix="$">
+
+                                    <label class="control-label col-lg-4" for="offerSalaryTo">До:</label>
+                                    <input id="offerSalaryTo" type="number" class="col-lg-8" value="2000" min="500"
+                                           max="10000" step="100" data-suffix="$">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+
+                            <div class="col-lg-6 offset-lg-6">
+                                <div class="float-right">
+                                    <input type="submit" class="btn btn-primary"
+                                           value="Отфильтровать"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <br>
+                    <div class="row">
+
+                        <hr>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Компания</th>
+                                    <th>Вакансия</th>
+                                    <th>Город</th>
+                                    <th>Номер телефона</th>
+                                    <th>Зарплата</th>
+                                    <th>Инфо</th>
+                                    <th>Активный</th>
+                                    <th>Редактировать</th>
+                                    <th>Удалить</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="offer" items="${offers }">
+                                    <tr>
+                                        <td>${offer.company.name}</td>
+                                        <td>${offer.name}</td>
+                                        <td>${offer.company.city.name}</td>
+                                        <td>${offer.company.phone}</td>
+                                        <td>${offer.salary}</td>
+                                        <td><a href="/offer-info?id=${offer.id }"><i class="fa fa-info"></i> </a></td>
+                                        <c:if test="${!offer.active}">
+                                            <td><a href="/offer-activate?id=${offer.id }"><i class="fa fa-minus"></i>
+                                            </a></td>
+                                        </c:if>
+                                        <c:if test="${offer.active}">
+                                            <td><a href="/offer-deactivate?id=${offer.id }"><i class="fa fa-check"></i>
+                                            </a></td>
+                                        </c:if>
+                                        <td><a href="/offer-edit?id=${offer.id }"><i class="fa fa-edit"></i> </a></td>
+                                        <td><a href="/offer-delete?id=${offer.id }"><i class="fa fa-trash"></i> </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+
+
             <c:when test="${mode=='MODE_STAT'}">
                 <div class="container">
                     <br>

@@ -2,9 +2,12 @@ package by.bsuir.kp.work_center.controller;
 
 import by.bsuir.kp.work_center.dao.entity.User;
 import by.bsuir.kp.work_center.enumerated.Role;
+import by.bsuir.kp.work_center.filtering.OfferFiltering;
+import by.bsuir.kp.work_center.sevice.OfferService;
 import by.bsuir.kp.work_center.sevice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OfferService offerService;
 
 
     @RequestMapping("/adminPage")
@@ -61,5 +67,26 @@ public class AdminController {
         userService.registration(user);
         request.setAttribute("mode", "MODE_USERS");
         return "adminpage";
+    }
+
+
+    @RequestMapping("/offer-management")
+    public String offerManagement(HttpServletRequest request, Model model) {
+        request.setAttribute("mode", "MODE_WORK_LIST");
+        request.setAttribute("offers", offerService.getAllOffers());
+        model.addAttribute("offerFiltering", new OfferFiltering());
+        return "adminpage";
+    }
+
+    @RequestMapping("/offer-activate")
+    public String activateOffer(@RequestParam long id, HttpServletRequest request, Model model) {
+        offerService.activateOffer(id, true);
+        return offerManagement(request, model);
+    }
+
+    @RequestMapping("/offer-deactivate")
+    public String deactivateOffer(@RequestParam long id, HttpServletRequest request, Model model) {
+        offerService.activateOffer(id, false);
+        return offerManagement(request, model);
     }
 }
