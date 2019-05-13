@@ -32,22 +32,6 @@ public class Offer {
     public Offer() {
     }
 
-    public Offer(String name, Company company, Set<Response> responses, Double salary, String description, Boolean active) {
-        this.name = name;
-        this.company = company;
-        this.responses = responses;
-        this.salary = salary;
-        this.description = description;
-        this.active = active;
-    }
-
-    public Offer(String name, Company company, Double salary, String description, Boolean active) {
-        this.name = name;
-        this.company = company;
-        this.salary = salary;
-        this.description = description;
-        this.active = active;
-    }
 
     public Long getId() {
         return id;

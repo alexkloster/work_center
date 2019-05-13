@@ -51,7 +51,7 @@ public class UserController {
 
     @RequestMapping("/unResponse")
     public String unResponse(@RequestParam Long id, HttpServletRequest request, Model model) {
-        responseService.unResponse(id);
+        responseService.deleteById(id);
         return workList(request, model);
     }
 

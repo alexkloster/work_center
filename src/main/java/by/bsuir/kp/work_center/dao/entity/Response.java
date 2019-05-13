@@ -41,11 +41,11 @@ public class Response {
         this.id = id;
     }
 
-    public User getUsers() {
+    public User getUser() {
         return user;
     }
 
-    public void setUsers(User users) {
+    public void setUser(User users) {
         this.user = users;
     }
 

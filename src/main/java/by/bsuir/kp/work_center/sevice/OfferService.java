@@ -16,4 +16,6 @@ public interface OfferService {
 
     void activateOffer(Long id, Boolean active);
 
+    void deleteOffer(Long id);
+
 }

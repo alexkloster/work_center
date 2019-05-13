@@ -34,12 +34,27 @@ public class ResponseServiceImpl implements ResponseService {
     }
 
     @Override
-    public void unResponse(Long id) {
+    public void deleteById(Long id) {
         responseRepository.deleteById(id);
     }
 
     @Override
     public List<Response> getAllResponsesByUser(User user) {
         return responseRepository.findAllByUser(user);
+    }
+
+    @Override
+    public List<Response> getAllResponses() {
+        return responseRepository.findAll();
+    }
+
+    @Override
+    public Response getById(Long id) {
+        return responseRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Response update(Response response) {
+        return responseRepository.save(response);
     }
 }

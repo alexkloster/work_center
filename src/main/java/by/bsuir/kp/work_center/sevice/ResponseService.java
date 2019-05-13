@@ -9,8 +9,14 @@ public interface ResponseService {
 
     void response(Long id);
 
-    void unResponse(Long id);
+    void deleteById(Long id);
 
     List<Response> getAllResponsesByUser(User user);
+
+    List<Response> getAllResponses();
+
+    Response getById(Long id);
+
+    Response update(Response response);
 
 }
