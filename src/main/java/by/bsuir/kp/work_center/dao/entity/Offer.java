@@ -19,9 +19,8 @@ public class Offer {
     private Company company;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "response", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
+    private Set<Response> responses = new HashSet<>();
 
     private Double salary;
 
@@ -34,17 +33,17 @@ public class Offer {
         this.description = description;
     }
 
-    public Offer(String name, Company company, Set<User> users, Double salary, String description) {
-        this.name = name;
-        this.company = company;
-        this.users = users;
-        this.salary = salary;
-        this.description = description;
-    }
 
     public Offer() {
     }
 
+    public Offer(String name, Company company, Set<Response> responses, Double salary, String description) {
+        this.name = name;
+        this.company = company;
+        this.responses = responses;
+        this.salary = salary;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -70,12 +69,12 @@ public class Offer {
         this.company = company;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<Response> getResponses() {
+        return responses;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setResponses(Set<Response> responses) {
+        this.responses = responses;
     }
 
     public Double getSalary() {

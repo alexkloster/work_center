@@ -28,10 +28,8 @@ public class User {
 
     private String phone;
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "response", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "offer_id") })
-    private Set<Offer> offers = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Response> responses = new HashSet<>();
 
     public User() {
     }
@@ -51,16 +49,15 @@ public class User {
     }
 
 
-    public User(String login, String name, String password, Role role, Boolean submitted, String phone, Set<Offer> offers) {
+    public User(String login, String name, String password, Role role, Boolean submitted, String phone, Set<Response> responses) {
         this.login = login;
         this.name = name;
         this.password = password;
         this.role = role;
         this.submitted = submitted;
         this.phone = phone;
-        this.offers = offers;
+        this.responses = responses;
     }
-
 
     public Long getId() {
         return id;
@@ -118,11 +115,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
+    public Set<Response> getResponses() {
+        return responses;
     }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setResponses(Set<Response> responses) {
+        this.responses = responses;
     }
 }
