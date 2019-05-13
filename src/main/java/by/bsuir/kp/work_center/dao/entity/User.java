@@ -4,6 +4,8 @@ package by.bsuir.kp.work_center.dao.entity;
 import by.bsuir.kp.work_center.enumerated.Role;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,6 +29,10 @@ public class User {
     private String phone;
 
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "response", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "offer_id") })
+    private Set<Offer> offers = new HashSet<>();
+
     public User() {
     }
 
@@ -43,6 +49,18 @@ public class User {
         this.submitted = submitted;
         this.phone = phone;
     }
+
+
+    public User(String login, String name, String password, Role role, Boolean submitted, String phone, Set<Offer> offers) {
+        this.login = login;
+        this.name = name;
+        this.password = password;
+        this.role = role;
+        this.submitted = submitted;
+        this.phone = phone;
+        this.offers = offers;
+    }
+
 
     public Long getId() {
         return id;
@@ -98,5 +116,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Set<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 }

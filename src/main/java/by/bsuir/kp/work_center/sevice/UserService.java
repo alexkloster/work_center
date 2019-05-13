@@ -11,7 +11,7 @@ public interface UserService {
 
     User authorisation(String login, String password);
 
-    User registration(User user);
+    User registration(User userEntity);
 
 
     void deleteUser(Long id);

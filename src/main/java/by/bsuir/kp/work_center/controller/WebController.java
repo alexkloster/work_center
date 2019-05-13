@@ -1,6 +1,5 @@
 package by.bsuir.kp.work_center.controller;
 
-
 import by.bsuir.kp.work_center.dao.entity.User;
 import by.bsuir.kp.work_center.enumerated.Role;
 import by.bsuir.kp.work_center.sevice.UserService;
@@ -18,15 +17,8 @@ public class WebController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping("/welcome")
     public String welcome(HttpServletRequest request) {
-        if(userService.getAllUsers().size() == 0) {
-            User admin = new User("admin", "admin", "admin", Role.ADMINISTRATOR, true) ;
-            userService.registration(admin);
-            User user = new User("user", "user", "user", Role.USER, true );
-            userService.registration(user);
-        }
         checkUser(request);
         request.setAttribute("mode", "MODE_HOME");
         return "welcomepage";
@@ -65,37 +57,16 @@ public class WebController {
         }
     }
 
-    @RequestMapping("/requisites")
-    public String requisites(HttpServletRequest request) {
-        checkUser(request);
-        return "requisites";
-    }
-
-    @RequestMapping("/contacts")
-    public String contacts(HttpServletRequest request) {
-        checkUser(request);
-        return "contacts";
-    }
-
-    @RequestMapping("/offices")
-    public String offices(HttpServletRequest request) {
-        checkUser(request);
-        return "offices";
-    }
-
-    @RequestMapping("/jobs")
-    public String work(HttpServletRequest request) {
-        checkUser(request);
-        return "work";
-    }
-
     @RequestMapping("/exit")
     public String exit(HttpServletRequest request) {
         userService.setCurrentUser(null);
         return welcome(request);
     }
 
-
+    @RequestMapping("/main")
+    public String main(HttpServletRequest request) {
+        return "main";
+    }
 
     private void checkUser(HttpServletRequest request) {
         if (userService.getCurrentUser() == null) {
@@ -106,7 +77,6 @@ public class WebController {
             request.setAttribute("NAVIGATION_MODE", "user");
         }
     }
-
 
 
 }

@@ -1,6 +1,7 @@
 package by.bsuir.kp.work_center.dao.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,23 +18,33 @@ public class Offer {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy="offer")
-    private Set<User> respondedUsers;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "response", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    private Set<User> users = new HashSet<>();
 
     private Double salary;
 
     private String description;
 
-    public Offer(String name, Company company, Set<User> respondedUsers, Double salary, String description) {
+    public Offer(String name, Company company, Double salary, String description) {
         this.name = name;
         this.company = company;
-        this.respondedUsers = respondedUsers;
+        this.salary = salary;
+        this.description = description;
+    }
+
+    public Offer(String name, Company company, Set<User> users, Double salary, String description) {
+        this.name = name;
+        this.company = company;
+        this.users = users;
         this.salary = salary;
         this.description = description;
     }
 
     public Offer() {
     }
+
 
     public Long getId() {
         return id;
@@ -59,12 +70,12 @@ public class Offer {
         this.company = company;
     }
 
-    public Set<User> getRespondedUsers() {
-        return respondedUsers;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setRespondedUsers(Set<User> respondedUsers) {
-        this.respondedUsers = respondedUsers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Double getSalary() {

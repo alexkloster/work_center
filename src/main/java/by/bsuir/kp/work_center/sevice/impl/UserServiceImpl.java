@@ -24,26 +24,26 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User registration(User user) {
+    public User registration(User userEntity) {
 
-        if (userRepository.countByLogin(user.getLogin()) > 0) {
+        if (userRepository.countByLogin(userEntity.getLogin()) > 0) {
             return null;
         }
 
-        userRepository.save(user);
-        return user;
+        userRepository.save(userEntity);
+        return userEntity;
     }
 
     @Override
     public User authorisation(String login, String password) {
         System.out.println(login);
         System.out.println(password);
-        User user = userRepository.findByLoginAndPassword(login, password).orElse(new User(login, password));
-        System.out.println(user.getId());
-        if(user.getId() != null) {
-            currentUser = user;
+        User userEntity = userRepository.findByLoginAndPassword(login, password).orElse(new User(login, password));
+        System.out.println(userEntity.getId());
+        if(userEntity.getId() != null) {
+            currentUser = userEntity;
         }
-        return user;
+        return userEntity;
     }
 
     @Override

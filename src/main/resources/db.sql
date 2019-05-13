@@ -1,78 +1,142 @@
--- CREATE DATABASE "work_center_db"
+-- CREATE DATABASE "car_shop_db"
 -- WITH
 -- OWNER = postgres
 -- ENCODING = 'UTF8'
 -- CONNECTION LIMIT = -1;
---
--- \c "work_center_db"
 
 
-CREATE TABLE "users"
-(
+CREATE TABLE "users" (
 
-    id        BIGSERIAL              NOT NULL,
-    name      CHARACTER VARYING(127) NOT NULL,
-    login     CHARACTER VARYING(127) NOT NULL,
-    password  CHARACTER VARYING(127) NOT NULL,
-    role      INT                    NOT NULL,
-    phone     character varying(30)  NOT null,
-    submitted BOOLEAN                NOT NULL DEFAULT FALSE,
+  id        BIGSERIAL              NOT NULL,
+  name      CHARACTER VARYING(127) NOT NULL,
+  login     CHARACTER VARYING(127) NOT NULL,
+  password  CHARACTER VARYING(127) NOT NULL,
+  role      INT                    NOT NULL,
+  submitted BOOLEAN                NOT NULL DEFAULT FALSE,
 
-    CONSTRAINT users_pk PRIMARY KEY (id)
+  CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
 
+CREATE TABLE engine (
+  id          BIGSERIAL              NOT NULL,
+  name        CHARACTER VARYING(127) NOT NULL,
+  pover       INT                    NOT NULL,
+  capacity    DOUBLE PRECISION       NOT NULL,
+  consumption DOUBLE PRECISION       NOT NULL,
+  cost        DOUBLE PRECISION       NOT NULL,
 
-CREATE TABLE company
-(
-    id    BIGSERIAL              NOT NULL,
-    name  CHARACTER VARYING(127) NOT NULL,
-    city  CHARACTER VARYING(127) NOT NULL,
-    phone CHARACTER VARYING(127) NOT NULL,
-
-    CONSTRAINT company_pk PRIMARY KEY (id)
+  CONSTRAINT engine_pk PRIMARY KEY (id)
 );
 
 
-CREATE TABLE offer
-(
-    id          BIGSERIAL              NOT NULL,
-    name        CHARACTER VARYING(127) NOT NULL,
-    company_id  INT                    NOT NULL,
-    salary      DOUBLE PRECISION       NOT NULL,
-    description CHARACTER VARYING(127) NOT NULL,
+CREATE TABLE manufacture (
+  id   BIGSERIAL              NOT NULL,
+  name CHARACTER VARYING(127) NOT NULL,
 
-    CONSTRAINT offer_pk PRIMARY KEY (id),
-
-    CONSTRAINT company_fk FOREIGN KEY (company_id)
-        REFERENCES company (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE CASCADE
-
+  CONSTRAINT manufacture_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE response
-(
+CREATE TABLE vehicle_type (
 
-    id       BIGSERIAL NOT NULL,
-    offer_id INT       NOT NULL,
-    user_id  INT       NOT NULL,
+  id   BIGSERIAL              NOT NULL,
+  name CHARACTER VARYING(127) NOT NULL,
 
-
-    CONSTRAINT response_pk PRIMARY KEY (id),
-
-    CONSTRAINT offer_fk FOREIGN KEY (offer_id)
-        REFERENCES offer (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE CASCADE,
-
-    CONSTRAINT user_fk FOREIGN KEY (user_id)
-        REFERENCES users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE CASCADE
+  CONSTRAINT vehicle_type_pk PRIMARY KEY (id)
 );
 
-alter table response
-    add approved boolean;
+CREATE TABLE model (
+  id              BIGSERIAL              NOT NULL,
+  name            CHARACTER VARYING(127) NOT NULL,
+  vehicle_type_id INT                    NOT NULL,
+  cost            DOUBLE PRECISION       NOT NULL,
+  manufacture_id  INT                    NOT NULL,
+
+  CONSTRAINT model_pk PRIMARY KEY (id),
+
+  CONSTRAINT manufacture_fk FOREIGN KEY (manufacture_id)
+  REFERENCES manufacture (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
+
+  CONSTRAINT vehicle_type_fk FOREIGN KEY (vehicle_type_id)
+  REFERENCES vehicle_type (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE
+);
 
 
-create unique index response_unuque_index
-    on response (user_id, offer_id);
+CREATE TABLE auto (
+
+  id         BIGSERIAL              NOT NULL,
+  VIN        CHARACTER VARYING(127) NOT NULL,
+  model_id  BIGSERIAL NOT NULL,
+  engine_id BIGSERIAL NOT NULL,
+
+  CONSTRAINT auto_pk PRIMARY KEY (id),
+
+  CONSTRAINT model_fk FOREIGN KEY (model_id)
+  REFERENCES model (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
+
+  CONSTRAINT engine_fr FOREIGN KEY (engine_id)
+  REFERENCES engine (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+
+CREATE TABLE client (
+
+  id              BIGSERIAL              NOT NULL,
+  name            CHARACTER VARYING(127) NOT NULL,
+  passport_series CHARACTER VARYING(4)   NOT NULL,
+  passport_number INT                    NOT NULL,
+
+  CONSTRAINT client_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE "order" (
+
+  id         BIGSERIAL        NOT NULL,
+  auto_id    BIGSERIAL        NOT NULL,
+  price      DOUBLE PRECISION NOT NULL,
+  client_id  BIGSERIAL        NOT NULL,
+  user_id    BIGSERIAL        NOT NULL,
+  first_date  DATE             NOT NULL,
+  second_date DATE             NOT NULL,
+  ready      BOOLEAN          NOT NULL DEFAULT FALSE,
+
+  CONSTRAINT order_pk PRIMARY KEY (id),
+
+  CONSTRAINT auto_fk FOREIGN KEY (auto_id)
+  REFERENCES auto (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
+
+  CONSTRAINT client_fk FOREIGN KEY (client_id)
+  REFERENCES client (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE,
+
+  CONSTRAINT users_fk FOREIGN KEY (user_id)
+  REFERENCES users (id) MATCH SIMPLE
+  ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+
+ALTER TABLE public.engine RENAME COLUMN pover TO power;
+
+
+alter table auto drop column vin;
+
+
+alter table orders
+	add vin varchar(20);
+
+
+alter table client
+	add address varchar(30);
+
+alter table client
+	add phone varchar(20);
+
+
+
+
 
