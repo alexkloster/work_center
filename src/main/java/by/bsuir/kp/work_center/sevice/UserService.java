@@ -13,6 +13,7 @@ public interface UserService {
 
     User registration(User userEntity);
 
+    void update(User user);
 
     void deleteUser(Long id);
 

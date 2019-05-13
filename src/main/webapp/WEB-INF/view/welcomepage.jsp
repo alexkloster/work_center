@@ -27,13 +27,13 @@
 
 </head>
 <body>
-<div class="page-container bg-light">
-    <div class="content-wrap bg-white">
+<div id="page-container">
+    <div class="bg-white" id="content-wrap">
 
         <c:choose>
             <c:when test="${NAVIGATION_MODE == null}">
                 <div role="navigation">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                         <div class="container">
                             <a class="navbar-brand" href="/welcome">
                                 <img src="static/images/logo.png" alt="" height="50">
@@ -68,34 +68,28 @@
                 <div role="navigation">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
                         <div class="container">
-                            <a class="navbar-brand" href="/userPage">
+                            <a class="navbar-brand" href="/welcome">
                                 <img src="static/images/logo.png" alt="" height="50">
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#navbarUserResponsive"
-                                    aria-controls="navbarUserResponsive" aria-expanded="false"
+                                    data-target="#navbarResponsive"
+                                    aria-controls="navbarResponsive" aria-expanded="false"
                                     aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarUserResponsive">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="/sales"><i class="fa fa-home"></i> </a>
+                                        <a class="nav-link" href="/welcome"><i class="fa fa-home"></i> </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/payment">Продать авто</a>
+                                        <a class="nav-link" href="/workList">Список вакансий</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/add">Добавить авто</a>
+                                        <a class="nav-link" href="/responses">Мои отклики</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/edit-auto">Редактировать авто</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/purchase">Покупки</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Контакты</a>
+                                        <a class="nav-link" href="/profile">Профиль</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/exit">Выйти</a>
@@ -380,58 +374,55 @@
 
 
     <br>
-    <footer class="navbar navbar-light bg-light">
-        <div class="container bg-light">
-                <div class="col-lg-4">
-                    <div class="copy">© 2019 <span class="nowrap">ЗАО «<a class="spec_decor"
-                                                                          href="/welcome">4 Колеса</a>»</span>
-                    </div>
-                    <div class="foo_info">
-                        Лицензия  N31 от 28 мая 2013 года на осуществление
-                        торговой деятельности. <br>
-                        <br>
-                    </div>
+    <footer class="navbar navbar-dark bg-dark" id="footer">
+        <div class="container navbar-text">
+            <div class="col-lg-4">
+                <div class="copy">© 2019 <span class="nowrap">ЗАО «<a class="spec_decor"
+                                                                      href="/welcome">4 Колеса</a>»</span>
                 </div>
-
-                <div class="col-lg-4">
-                    <h4>Информация о нас</h4>
-                    <ul class="foo_nav">
-
-                        <li><a href="" class="undecor">Вакансии</a></li>
-
-                        <li><a href="" class="undecor">О нас</a></li>
-
-                    </ul>
-                    <div class="social_block">
-                        <div class="social_block_grid">
-                            <a href="" target="_blank"
-                               class="social_block_item">
-                                <img src="/static/images/social_facebook.svg" alt="facebook">
-                            </a>
-                            <a href="" target="_blank" class="social_block_item">
-                                <img src="/static/images/social_vk.svg" alt="vk">
-                            </a>
-                            <a href="" target="_blank"
-                               class="social_block_item">
-                                <img src="/static/images/social_instagram.svg" alt="instargram">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <h4>Клиенту</h4>
-                    <ul class="foo_nav">
-
-                        <li><a href="/" class="undecor">Контакты</a></li>
-
-                        <li><a href="/" class="undecor">Как нас найти</a></li>
-
-                        <li><a href="/welcome" class="undecor">4 Колеса онлайн</a></li>
-
-                    </ul>
+                <div class="foo_info">
+                    Лицензия N31 от 28 мая 2013 года на осуществление
+                    торговой деятельности. <br>
+                    <br>
                 </div>
             </div>
+
+            <div class="col-lg-4">
+                <h4>Информация о нас</h4>
+                <ul class="foo_nav">
+                    <li><a href="" class="undecor">Вакансии</a></li>
+                    <li><a href="" class="undecor">О нас</a></li>
+                </ul>
+                <div class="social_block">
+                    <div class="social_block_grid">
+                        <a href="" target="_blank"
+                           class="social_block_item">
+                            <img src="/static/images/social_facebook.svg" alt="facebook">
+                        </a>
+                        <a href="" target="_blank" class="social_block_item">
+                            <img src="/static/images/social_vk.svg" alt="vk">
+                        </a>
+                        <a href="" target="_blank"
+                           class="social_block_item">
+                            <img src="/static/images/social_instagram.svg" alt="instargram">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <h4>Клиенту</h4>
+                <ul class="foo_nav">
+
+                    <li><a href="/" class="undecor">Контакты</a></li>
+
+                    <li><a href="/" class="undecor">Как нас найти</a></li>
+
+                    <li><a href="/welcome" class="undecor">4 Колеса онлайн</a></li>
+
+                </ul>
+            </div>
+        </div>
     </footer>
 </div>
 

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "offer")
+@Table
 public class Offer {
 
     @Id
@@ -26,23 +26,27 @@ public class Offer {
 
     private String description;
 
-    public Offer(String name, Company company, Double salary, String description) {
-        this.name = name;
-        this.company = company;
-        this.salary = salary;
-        this.description = description;
-    }
+    private Boolean active;
 
 
     public Offer() {
     }
 
-    public Offer(String name, Company company, Set<Response> responses, Double salary, String description) {
+    public Offer(String name, Company company, Set<Response> responses, Double salary, String description, Boolean active) {
         this.name = name;
         this.company = company;
         this.responses = responses;
         this.salary = salary;
         this.description = description;
+        this.active = active;
+    }
+
+    public Offer(String name, Company company, Double salary, String description, Boolean active) {
+        this.name = name;
+        this.company = company;
+        this.salary = salary;
+        this.description = description;
+        this.active = active;
     }
 
     public Long getId() {
@@ -91,5 +95,13 @@ public class Offer {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

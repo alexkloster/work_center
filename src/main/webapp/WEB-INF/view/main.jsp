@@ -32,8 +32,8 @@
 
 </head>
 <body>
-<div class="page-container bg-light">
-    <div class="content-wrap bg-white">
+<div id="page-container">
+    <div class="bg-white" id="content-wrap">
 
         <div class="container">
             <div class="row">
@@ -93,14 +93,14 @@
     </div>
 
     <br>
-    <footer class="navbar navbar-light bg-light">
-        <div class="container bg-light">
+    <footer class="navbar navbar-dark bg-dark" id="footer">
+        <div class="container navbar-text">
             <div class="col-lg-4">
                 <div class="copy">© 2019 <span class="nowrap">ЗАО «<a class="spec_decor"
                                                                       href="/welcome">4 Колеса</a>»</span>
                 </div>
                 <div class="foo_info">
-                    Лицензия  N31 от 28 мая 2013 года на осуществление
+                    Лицензия N31 от 28 мая 2013 года на осуществление
                     торговой деятельности. <br>
                     <br>
                 </div>
@@ -109,11 +109,8 @@
             <div class="col-lg-4">
                 <h4>Информация о нас</h4>
                 <ul class="foo_nav">
-
                     <li><a href="" class="undecor">Вакансии</a></li>
-
                     <li><a href="" class="undecor">О нас</a></li>
-
                 </ul>
                 <div class="social_block">
                     <div class="social_block_grid">

@@ -4,7 +4,7 @@ package by.bsuir.kp.work_center.dao.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "company")
+@Table
 public class Company {
 
     @Id
@@ -13,17 +13,19 @@ public class Company {
 
     private String name;
 
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     private String phone;
 
-    public Company(String name, String city, String phone) {
+    public Company() {
+    }
+
+    public Company(String name, City city, String phone) {
         this.name = name;
         this.city = city;
         this.phone = phone;
-    }
-
-    public Company() {
     }
 
     public Long getId() {
@@ -42,11 +44,11 @@ public class Company {
         this.name = name;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

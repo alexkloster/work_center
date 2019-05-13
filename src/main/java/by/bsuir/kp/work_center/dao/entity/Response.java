@@ -4,7 +4,9 @@ package by.bsuir.kp.work_center.dao.entity;//package by.bsuir.kp.work_center.dao
 import javax.persistence.*;
 
 @Entity
-@Table(name = "response")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "offer_id"})
+})
 public class Response {
 
     @Id
@@ -22,7 +24,7 @@ public class Response {
 
     private Boolean approved;
 
-    public Response(User users, Offer offer, Boolean approved) {
+    public Response(User user, Offer offer, Boolean approved) {
         this.user = user;
         this.offer = offer;
         this.approved = approved;

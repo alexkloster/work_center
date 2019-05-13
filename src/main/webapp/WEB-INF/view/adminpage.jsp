@@ -34,10 +34,10 @@
 
 </head>
 <body>
-<div class="page-container bg-light">
-    <div class="content-wrap bg-white">
+<div id="page-container">
+    <div class="bg-white" id="content-wrap">
         <div role="navigation">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                 <div class="container">
                     <a class="navbar-brand" href="/adminPage">
                         <img src="static/images/logo.png" alt="" height="60">
@@ -58,9 +58,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/statistic">Статистика</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Контакты</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/exit">Выйти</a>
@@ -172,8 +169,10 @@
                                         <td>${user.login}</td>
                                         <td>${user.password}</td>
                                         <td>${user.role}</td>
-                                        <td><a href="/delete-user?id=${user.id }"><i class="fa fa-trash"></i></a></td>
-                                        <td><a href="/edit-user?id=${user.id }"><i class="fa fa-edit"></i> </a></td>
+                                        <td><a href="/admin-delete-user?id=${user.id }"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                        <td><a href="/admin-edit-user?id=${user.id }"><i class="fa fa-edit"></i> </a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -188,9 +187,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 offset-lg-3">
-                            <h3>Созать пользователя</h3>
+                            <h3>Профиль пользователя</h3>
                             <hr>
-                            <form class="form-horizontal" method="POST" action="save-user">
+                            <form class="form-horizontal" method="POST" action="/admin-save-user">
                                 <input type="hidden" name="id" value="${user.id}"/>
                                 <div class="form-group">
                                     <label class="control-label col-md-3">ФИО</label>
@@ -213,6 +212,17 @@
                                                value="${user.password}"/>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Номер
+                                        Телефона</label>
+                                    <div class="col-lg-12">
+                                        <input type="text"
+                                               class="form-control phone"
+                                               name="phone"
+                                               value="${user.phone }"
+                                               required="true"/>
+                                    </div>
+                                </div>
 
                                 <div class="form-group ">
                                     <input type="submit" class="btn btn-primary" value="Сохранить"/>
@@ -222,7 +232,7 @@
                     </div>
                 </div>
             </c:when>
-            <c:when test="${mode == 'MODE_STAT'}">
+            <c:when test="${mode=='MODE_STAT'}">
                 <div class="container">
                     <br>
                     <div class="card">
@@ -416,8 +426,8 @@
 
 
     <br>
-    <footer class="navbar navbar-light bg-light">
-        <div class="container bg-light">
+    <footer class="navbar navbar-dark bg-dark" id="footer">
+        <div class="container navbar-text">
             <div class="col-lg-4">
                 <div class="copy">© 2019 <span class="nowrap">ЗАО «<a class="spec_decor"
                                                                       href="/welcome">4 Колеса</a>»</span>
@@ -432,11 +442,8 @@
             <div class="col-lg-4">
                 <h4>Информация о нас</h4>
                 <ul class="foo_nav">
-
                     <li><a href="" class="undecor">Вакансии</a></li>
-
                     <li><a href="" class="undecor">О нас</a></li>
-
                 </ul>
                 <div class="social_block">
                     <div class="social_block_grid">
@@ -624,7 +631,8 @@
 <script src="static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="static/js/app.js"></script>
 <script type="text/javascript" src="static/js/admin.js"></script>
-<script src="static/js/userSales.js"></script>
+<script src="static/js/dist/jquery.inputmask.bundle.js"></script>
+
 
 </body>
 </html>

@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>by.bsuir.kp</groupId>
-	<artifactId>car-shop</artifactId>
+    <artifactId>work_center</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>car-shop</name>
-	<description>Car Shop</description>
+    <description>Work Center</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

@@ -32,12 +32,12 @@
 
 </head>
 <body>
-<div class="page-container bg-light">
-    <div class="content-wrap bg-white">
+<div id="page-container">
+    <div class="bg-white" id="content-wrap">
         <div role="navigation">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                 <div class="container">
-                    <a class="navbar-brand" href="/userPage">
+                    <a class="navbar-brand" href="/welcome">
                         <img src="static/images/logo.png" alt="" height="50">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -47,7 +47,7 @@
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="/userPage"><i class="fa fa-home"></i> </a>
+                                <a class="nav-link" href="/welcome"><i class="fa fa-home"></i> </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/workList">Список вакансий</a>
@@ -134,153 +134,286 @@
             </c:when>
             <c:when test="${mode=='MODE_WORK_LIST'}">
                 <br>
-                <form class="form-horizontal col-lg-12" method="POST"
-                      action="/filter-orders">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label class="control-label col-lg-12">Пользователь</label>
-                            <form:input type="hidden" path="filtering.userId" name="userId"
-                                        id="userId"/>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="userSelect">
-                                    <option></option>
-                                    <c:forEach var="user" items="${users}">
-                                        <option value="${user.id}"><c:out
-                                                value="${user.name}"/></option>
-                                    </c:forEach>
-                                </select>
+                <div class="container">
+
+                    <form class="form-horizontal col-lg-12" method="POST"
+                          action="/filter-offers">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label class="control-label col-lg-12">Компания</label>
+                                <form:input type="hidden" path="filtering.company.companyId" name="companyIdHidden"
+                                            id="companyIdHidden"/>
+                                <div class="col-lg-12">
+                                    <select class="form-control" id="companySelect">
+                                        <option></option>
+                                        <c:forEach var="company" items="${companies}">
+                                            <option value="${company.id}"><c:out
+                                                    value="${company.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <br>
+
+                                <label class="control-label col-lg-12">Город</label>
+                                <form:input type="hidden" path="filtering.company.cityId" name="cityIdHidden"
+                                            id="cityIdHidden"/>
+                                <div class="col-lg-12">
+                                    <select class="form-control" id="citySelect">
+                                        <option></option>
+                                        <c:forEach var="city" items="${cities}">
+                                            <option value="${city.id}"><c:out
+                                                    value="${city.name}"/></option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
                             </div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-12">
+                                    <div class="float-right"></div>
+                                    <form:input type="hidden" path="filtering.salaryFrom"
+                                                name="offerSalaryFromHidden"
+                                                id="offerSalaryFromHidden" value="1000"/>
+                                    <form:input type="hidden" path="filtering.salaryTo"
+                                                name="offerSalaryToHidden"
+                                                id="offerSalaryToHidden" value="2000"/>
+                                    <label class="control-label col-lg-12">Зарплата</label>
 
-                            <br>
+                                    <label class="control-label col-lg-4" for="offerSalaryFrom">От:</label>
+                                    <input id="offerSalaryFrom" type="number" class="col-lg-8" value="1000" min="500"
+                                           max="10000" step="100" data-suffix="$">
 
-                            <label class="control-label col-lg-12">Марка</label>
-                            <form:input type="hidden" path="filtering.manufactureId" name="manufactureId"
-                                        id="manufactureId"/>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="manufactureSelect">
-                                    <option></option>
-                                    <c:forEach var="manufacture" items="${manufactures}">
-                                        <option value="${manufacture.id}"><c:out
-                                                value="${manufacture.name}"/></option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4">
-                            <label class="control-label col-lg-12">Клиент</label>
-                            <form:input type="hidden" path="filtering.clientId" name="clientId"
-                                        id="clientId"/>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="clientSelect">
-                                    <option></option>
-                                    <c:forEach var="client" items="${clients}">
-                                        <option value="${client.id}"><c:out
-                                                value="${client.name}"/></option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
-                            <br>
-
-
-                            <label class="control-label col-lg-12">Модель</label>
-                            <form:input type="hidden" path="filtering.modelId" name="modelId"
-                                        id="modelId"/>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="modelSelect">
-                                    <option></option>
-                                    <c:forEach var="model" items="${models}">
-                                        <option value="${model.id}"><c:out
-                                                value="${model.name}"/></option>
-                                    </c:forEach>
-                                </select>
+                                    <label class="control-label col-lg-4" for="offerSalaryTo">До:</label>
+                                    <input id="offerSalaryTo" type="number" class="col-lg-8" value="2000" min="500"
+                                           max="10000" step="100" data-suffix="$">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <label class="control-label col-lg-12">Готовность</label>
-                            <form:input type="hidden" path="filtering.ready" name="readyFilter"
-                                        id="readyFilter"/>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="readySelect">
-                                    <option value="null"></option>
-                                    <option value="true"><c:out value="Готов"/></option>
-                                    <option value="false"><c:out value="Не готов"/></option>
-                                </select>
-                            </div>
 
-                            <br>
+                        <br>
 
+                        <div class="row">
 
-                            <label class="control-label col-lg-12">Двигатель</label>
-                            <form:input type="hidden" path="filtering.engineId" name="engineId"
-                                        id="engineId"/>
-                            <div class="col-lg-12">
-                                <select class="form-control" id="engineSelect">
-                                    <option></option>
-                                    <c:forEach var="engine" items="${engines}">
-                                        <option value="${engine.id}"><c:out
-                                                value="${engine.name}"/></option>
-                                    </c:forEach>
-                                </select>
+                            <div class="col-lg-6 offset-lg-6">
+                                <div class="float-right">
+                                    <input type="submit" class="btn btn-primary"
+                                           value="Отфильтровать"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
                     <br>
-
                     <div class="row">
 
-                        <div class="col-lg-6 offset-lg-6">
-                            <div class="float-right">
-                                <input type="submit" class="btn btn-primary"
-                                       value="Отфильтровать"/>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <br>
-                <div class="row">
-
-                    <hr>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Компания</th>
-                                <th>Вакансия</th>
-                                <th>Город</th>
-                                <th>Номер телефона</th>
-                                <th>Зарплата</th>
-                                <th>Инфо</th>
-                                <th>Откликнуться</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="offer" items="${offers }">
+                        <hr>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
                                 <tr>
-                                    <td>${offer.company.name}</td>
-                                    <td>${offer.name}</td>
-                                    <td>${offer.company.city}</td>
-                                    <td>${offer.company.phone}</td>
-                                    <td>${offer.salary}</td>
-                                    <td><a href="/engine-edit?id=${engine.id }"><i class="fa fa-edit"></i> </a></td>
-                                    <td><a href="/response?id=${offer.id }"><i class="fa fa-check"></i> </a></td>
+                                    <th>Компания</th>
+                                    <th>Вакансия</th>
+                                    <th>Город</th>
+                                    <th>Номер телефона</th>
+                                    <th>Зарплата</th>
+                                    <th>Инфо</th>
+                                    <th>Откликнуться</th>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="offer" items="${offers }">
+                                    <tr>
+                                        <td>${offer.company.name}</td>
+                                        <td>${offer.name}</td>
+                                        <td>${offer.company.city.name}</td>
+                                        <td>${offer.company.phone}</td>
+                                        <td>${offer.salary}</td>
+                                        <td><a href="/offer-info?id=${offer.id }"><i class="fa fa-info"></i> </a></td>
+                                        <td><a href="/response?id=${offer.id }"><i class="fa fa-check"></i> </a></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </c:when>
+
+            <c:when test="${mode=='MODE_PROFILE' }">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <h3>Изменить личные данные</h3>
+                            <hr>
+                            <form class="form-horizontal" method="POST" action="/edit-user">
+                                <input type="hidden" name="id" value="${user.id}"/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">ФИО</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" name="name"
+                                               value="${user.name}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Логин</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" name="login"
+                                               value="${user.login}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Пароль</label>
+                                    <div class="col-md-12">
+                                        <input type="password" class="form-control" name="password"
+                                               value="${user.password}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Номер
+                                        Телефона</label>
+                                    <div class="col-lg-12">
+                                        <input type="text"
+                                               class="form-control phone"
+                                               name="phone"
+                                               value="${user.phone }"
+                                               required="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <input type="submit" class="btn btn-primary" value="Сохранить"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+
+            <c:when test="${mode=='MODE_RESPONSES'}">
+                <br>
+                <div class="container">
+
+                        <%--                    <form class="form-horizontal col-lg-12" method="POST"--%>
+                        <%--                          action="/filter-offers">--%>
+                        <%--                        <div class="row">--%>
+                        <%--                            <div class="col-lg-4">--%>
+                        <%--                                <label class="control-label col-lg-12">Компания</label>--%>
+                        <%--                                <form:input type="hidden" path="filtering.company.companyId" name="companyIdHidden"--%>
+                        <%--                                            id="companyIdHidden"/>--%>
+                        <%--                                <div class="col-lg-12">--%>
+                        <%--                                    <select class="form-control" id="companySelect">--%>
+                        <%--                                        <option></option>--%>
+                        <%--                                        <c:forEach var="company" items="${companies}">--%>
+                        <%--                                            <option value="${company.id}"><c:out--%>
+                        <%--                                                    value="${company.name}"/></option>--%>
+                        <%--                                        </c:forEach>--%>
+                        <%--                                    </select>--%>
+                        <%--                                </div>--%>
+
+                        <%--                                <br>--%>
+
+                        <%--                                <label class="control-label col-lg-12">Город</label>--%>
+                        <%--                                <form:input type="hidden" path="filtering.company.cityId" name="cityIdHidden"--%>
+                        <%--                                            id="cityIdHidden"/>--%>
+                        <%--                                <div class="col-lg-12">--%>
+                        <%--                                    <select class="form-control" id="citySelect">--%>
+                        <%--                                        <option></option>--%>
+                        <%--                                        <c:forEach var="city" items="${cities}">--%>
+                        <%--                                            <option value="${city.id}"><c:out--%>
+                        <%--                                                    value="${city.name}"/></option>--%>
+                        <%--                                        </c:forEach>--%>
+                        <%--                                    </select>--%>
+                        <%--                                </div>--%>
+
+                        <%--                            </div>--%>
+                        <%--                            <div class="col-lg-4">--%>
+                        <%--                                <div class="col-lg-12">--%>
+                        <%--                                    <div class="float-right"></div>--%>
+                        <%--                                    <form:input type="hidden" path="filtering.salaryFrom"--%>
+                        <%--                                                name="offerSalaryFromHidden"--%>
+                        <%--                                                id="offerSalaryFromHidden" value="1000"/>--%>
+                        <%--                                    <form:input type="hidden" path="filtering.salaryTo"--%>
+                        <%--                                                name="offerSalaryToHidden"--%>
+                        <%--                                                id="offerSalaryToHidden" value="2000"/>--%>
+                        <%--                                    <label class="control-label col-lg-12">Зарплата</label>--%>
+
+                        <%--                                    <label class="control-label col-lg-4" for="offerSalaryFrom">От:</label>--%>
+                        <%--                                    <input id="offerSalaryFrom" type="number" class="col-lg-8" value="1000" min="500"--%>
+                        <%--                                           max="10000" step="100" data-suffix="$">--%>
+
+                        <%--                                    <label class="control-label col-lg-4" for="offerSalaryTo">До:</label>--%>
+                        <%--                                    <input id="offerSalaryTo" type="number" class="col-lg-8" value="2000" min="500"--%>
+                        <%--                                           max="10000" step="100" data-suffix="$">--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+
+                        <%--                        <br>--%>
+
+                        <%--                        <div class="row">--%>
+
+                        <%--                            <div class="col-lg-6 offset-lg-6">--%>
+                        <%--                                <div class="float-right">--%>
+                        <%--                                    <input type="submit" class="btn btn-primary"--%>
+                        <%--                                           value="Отфильтровать"/>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+                        <%--                    </form>--%>
+
+                    <br>
+                    <div class="row">
+
+                        <hr>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Компания</th>
+                                    <th>Вакансия</th>
+                                    <th>Город</th>
+                                    <th>Номер телефона</th>
+                                    <th>Зарплата</th>
+                                    <th>Подтверждение</th>
+                                    <th>Инфо</th>
+                                    <th>Отмена</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="response" items="${responses}">
+                                    <tr>
+                                        <td>${response.offer.company.name}</td>
+                                        <td>${response.offer.name}</td>
+                                        <td>${response.offer.company.city.name}</td>
+                                        <td>${response.offer.company.phone}</td>
+                                        <td>${response.offer.salary}</td>
+                                        <c:if test="${response.approved}">
+                                            <td><i class="fa fa-check"></i></td>
+                                        </c:if>
+                                        <c:if test="${!response.approved}">
+                                            <td><i class="fa fa-minus"></i></td>
+                                        </c:if>
+                                        <td><a href="/offer-info?id=${response.id }"><i class="fa fa-info"></i> </a>
+                                        </td>
+                                        <td><a href="/unResponse?id=${response.id }"><i class="fa fa-minus"></i> </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+
         </c:choose>
     </div>
 
 
     <br>
-    <footer class="navbar navbar-light bg-light">
-        <div class="container bg-light">
+    <footer class="navbar navbar-dark bg-dark" id="footer">
+        <div class="container navbar-text">
             <div class="col-lg-4">
                 <div class="copy">© 2019 <span class="nowrap">ЗАО «<a class="spec_decor"
                                                                       href="/welcome">4 Колеса</a>»</span>
@@ -295,11 +428,8 @@
             <div class="col-lg-4">
                 <h4>Информация о нас</h4>
                 <ul class="foo_nav">
-
                     <li><a href="" class="undecor">Вакансии</a></li>
-
                     <li><a href="" class="undecor">О нас</a></li>
-
                 </ul>
                 <div class="social_block">
                     <div class="social_block_grid">
@@ -437,9 +567,6 @@
 <script src="static/js/jquery-1.11.1.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
 <script src="static/js/app.js"></script>
-<script src="static/js/engine.js"></script>
-<script src="static/js/model.js"></script>
-<script src="static/js/auto.js"></script>
 <script src="static/js/dist/jquery.inputmask.bundle.js"></script>
 <script src="static/js/bootstrap-input-spinner.js"></script>
 
