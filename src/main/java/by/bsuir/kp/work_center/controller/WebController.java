@@ -64,10 +64,6 @@ public class WebController {
         return welcome(request);
     }
 
-    @RequestMapping("/main")
-    public String main(HttpServletRequest request) {
-        return "main";
-    }
 
     private void checkUser(HttpServletRequest request) {
         if (userService.getCurrentUser() == null) {

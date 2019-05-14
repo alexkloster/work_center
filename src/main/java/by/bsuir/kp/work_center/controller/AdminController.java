@@ -147,7 +147,7 @@ public class AdminController {
     @RequestMapping("/admin-edit-company")
     public String editCompany(@RequestParam long id, HttpServletRequest request, Model model) {
         request.setAttribute("company", companyService.getById(id));
-        request.setAttribute("city", cityService.getAllCities());
+        request.setAttribute("cities", cityService.getAllCities());
         request.setAttribute("mode", "MODE_UPDATE_COMPANY");
         return "adminpage";
     }

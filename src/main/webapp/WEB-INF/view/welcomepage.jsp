@@ -66,7 +66,7 @@
             </c:when>
             <c:when test="${NAVIGATION_MODE == 'user'}">
                 <div role="navigation">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                         <div class="container">
                             <a class="navbar-brand" href="/welcome">
                                 <img src="static/images/logo.png" alt="" height="50">
@@ -102,7 +102,7 @@
             </c:when>
             <c:when test="${NAVIGATION_MODE == 'admin'}">
                 <div role="navigation">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                         <div class="container">
                             <a class="navbar-brand" href="/adminPage">
                                 <img src="static/images/logo.png" alt="" height="50">

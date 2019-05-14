@@ -85,3 +85,12 @@ $('#companySelect').on('change', function () {
     $("#companyIdHidden").val(combo.options[combo.selectedIndex].value);
 
 });
+
+
+$('#companyCitySelect').on('change', function () {
+
+    var combo = document.getElementById("companyCitySelect");
+
+    $("#companyCityIdHidden").val(combo.options[combo.selectedIndex].value);
+
+});

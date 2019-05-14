@@ -527,6 +527,60 @@
                 </div>
             </c:when>
 
+            <c:when test="${mode=='MODE_UPDATE_COMPANY' }">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <h3>Компании</h3>
+                            <hr>
+                            <form class="form-horizontal" method="POST" action="/admin-save-company">
+
+                                <input type="hidden" name="id" value="${company.id}"/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Название</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" name="name"
+                                               value="${company.name}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Номер Телефона</label>
+                                    <div class="col-lg-12">
+                                        <input type="text"
+                                               class="form-control phone"
+                                               name="phone"
+                                               value="${company.phone }"
+                                               required="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" name="companyCityIdHidden" id="companyCityIdHidden"
+                                           value="${company.city.id}"/>
+                                    <label class="control-label col-md-3">Город</label>
+                                    <div class="col-md-11">
+                                        <select class="form-control" id="companyCitySelect">
+                                            <option value="${company.city.id}"><c:out
+                                                    value="${company.city.name}"/></option>
+                                            <c:forEach var="city" items="${cities}">
+                                                <option value="${city.id}"><c:out
+                                                        value="${city.name}"/></option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <input type="submit" class="btn btn-primary" value="Сохранить"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+
+
             <c:when test="${mode=='MODE_RESPONSES'}">
                 <br>
                 <div class="container">
@@ -603,6 +657,23 @@
 
                     <br>
                     <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-6 offset-lg-3">
+                                <button type="button" id="modelStatisticModal" class="btn btn-primary btn-sm"
+                                        data-target="#statisticModal" data-toggle="modal">
+                                    Статистика вакансий
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-6 offset-lg-3"></div>
+                            <button type="button" id="userStatisticModal" class="btn btn-primary btn-sm"
+                                    data-target="#statisticModal" data-toggle="modal">
+                                Статистика пользователей
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
 
                         <hr>
                         <div class="table-responsive">
@@ -650,195 +721,6 @@
             </c:when>
 
 
-            <c:when test="${mode=='MODE_STAT'}">
-                <div class="container">
-                    <br>
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse"
-                                        data-target="#collapseModel" aria-expanded="true"
-                                        aria-controls="collapseModel">
-                                    Параметры фильтрации
-                                </button>
-                            </h5>
-                        </div>
-
-                        <div id="collapseModel" class="collapse" aria-labelledby="headingOne"
-                             data-parent="#filters">
-                            <div class="card-body">
-                                <form class="form-horizontal col-lg-12" method="POST"
-                                      action="/filter-orders">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <label class="control-label col-lg-12">Клиент</label>
-                                            <form:input type="hidden" path="filtering.clientId" name="clientId"
-                                                        id="clientId"/>
-                                            <div class="col-lg-12">
-                                                <select class="form-control" id="clientSelect">
-                                                    <option></option>
-                                                    <c:forEach var="client" items="${clients}">
-                                                        <option value="${client.id}"<c:if
-                                                                test="${filtering.clientId == client.id}"> selected = 'selected' </c:if> >
-                                                            <c:out
-                                                                    value="${client.name}"/></option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <br>
-                                            <label class="control-label col-lg-12">Готовность</label>
-                                            <form:input type="hidden" path="filtering.ready" name="readyFilter"
-                                                        id="readyFilter"/>
-                                            <div class="col-lg-12">
-                                                <select class="form-control" id="readySelect">
-                                                    <option value="null"></option>
-                                                    <option value="true"><c:out value="Готов"/></option>
-                                                    <option value="false"><c:out value="Не готов"/></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <label class="control-label col-lg-12">Модель</label>
-                                            <form:input type="hidden" path="filtering.modelId"
-                                                        name="autoModelId"
-                                                        id="autoModelId"/>
-                                            <div class="row">
-                                                <div class="col-lg-10">
-                                                    <select class="form-control" id="autoModelSelect">
-                                                        <option value="${model.id}"><c:out
-                                                                value="${model.manufacture.name} ${model.name}"/></option>
-                                                        <c:forEach var="model" items="${models}">
-                                                            <option value="${model.id}" <c:if
-                                                                    test="${filtering.modelId == model.id}"> selected = 'selected' </c:if> >
-                                                                <c:out
-                                                                        value="${model.manufacture.name} ${model.name}"/></option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-1">
-                                                    <button type="button" id="openModelModal"
-                                                            class="btn btn-primary btn-sm"
-                                                            data-target="#modelInfoModal" data-toggle="modal">
-                                                        <i class="fa fa-info"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <label class="control-label col-lg-12">Двигатель</label>
-                                            <form:input type="hidden" path="filtering.engineId" name="autoEngineId"
-                                                        id="autoEngineId"/>
-
-                                            <div class="row">
-                                                <div class="col-lg-10">
-                                                    <select class="form-control" id="autoEngineSelect">
-                                                        <option value="${car.engine.id}"><c:out
-                                                                value="${car.engine.name}"/></option>
-                                                        <c:forEach var="engine" items="${engines}">
-                                                            <option value="${engine.id}" <c:if
-                                                                    test="${filtering.engineId == engine.id}"> selected = 'selected' </c:if> >
-                                                                <c:out
-                                                                        value="${engine.name}"/></option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-1">
-                                                    <button type="button" id="openEngineModal"
-                                                            class="btn btn-primary btn-sm"
-                                                            data-target="#engineInfoModal" data-toggle="modal">
-                                                        <i class="fa fa-info"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <br>
-
-                                    <div class="row">
-
-                                        <div class="col-lg-6 offset-lg-6">
-                                            <div class="float-right">
-                                                <input type="submit" class="btn btn-primary"
-                                                       value="Отфильтровать"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-lg-3">
-
-                            <button type="button" id="modelStatisticModal" class="btn btn-primary btn-sm"
-                                    data-target="#statisticModal" data-toggle="modal">
-                                Статистика моделей
-                            </button>
-                        </div>
-                        <div class="col-lg-3">
-                            <button type="button" id="engineStatisticModal" class="btn btn-primary btn-sm"
-                                    data-target="#statisticModal" data-toggle="modal">
-                                Статистика двигателей
-                            </button>
-                        </div>
-                        <div class="col-lg-3">
-                            <button type="button" id="userStatisticModal" class="btn btn-primary btn-sm"
-                                    data-target="#statisticModal" data-toggle="modal">
-                                Статистика пользователей
-                            </button>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="float-right">
-                                <button type="button" id="clientStatisticModal" class="btn btn-primary btn-sm"
-                                        data-target="#statisticModal" data-toggle="modal">
-                                    Статистика клиентов
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="row">
-
-                        <hr>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Марка</th>
-                                    <th>Модель</th>
-                                    <th>Тип кузова</th>
-                                    <th>Двигатель</th>
-                                    <th>Цена</th>
-                                    <th>Дата заказа</th>
-                                    <th>Дата готовности</th>
-                                    <th>Продавец</th>
-                                    <th>Покупатель</th>
-                                    <th>Готовность</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="order" items="${orders }">
-                                    <tr>
-                                        <td>${order.auto.model.manufacture.name}</td>
-                                        <td>${order.auto.model.name}</td>
-                                        <td>${order.auto.model.vehicleType.name}</td>
-                                        <td>${order.auto.engine.name}</td>
-                                        <td>${order.price}</td>
-                                        <td><fmt:formatDate value="${order.firstDate}" pattern="dd-MM-yyyy"/></td>
-                                        <td><fmt:formatDate value="${order.secondDate}" pattern="dd-MM-yyyy"/></td>
-                                        <td>${order.user.name}</td>
-                                        <td>${order.client.name}</td>
-                                        <td>${order.ready}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </c:when>
         </c:choose>
     </div>
 
